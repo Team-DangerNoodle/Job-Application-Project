@@ -1,4 +1,4 @@
-# Wunderpuss
+# Job Application Project
 
 Application 
 Api used for this project
