@@ -7,7 +7,7 @@ const authRouters = require('./routers/authRouters');
 const applicationRouters = require('./routers/applicationRouters');
 const remotiveRouters = require('./routers/remotiveRouters');
 
-const MONGO_URI = process.env.MONGO_URI;
+const MONGO_URI = "mongodb+srv://adamlang:iterationproject@cluster0.1fk97.mongodb.net/ITERATIONPROJECT?retryWrites=true&w=majority"
 
 const app = express();
 const PORT = 3000;
