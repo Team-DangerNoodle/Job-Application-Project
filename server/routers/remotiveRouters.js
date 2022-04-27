@@ -3,7 +3,7 @@ const router = express.Router();
 // const fetch = require('node-fetch');
 
 const apiUrl =
-  'https://remotive.com/api/remote-jobs?category=software-dev&limit=20';
+  "https://remotive.com/api/remote-jobs?category=software-dev&limit=20";
 
 router.get('/', (req, res, next) => {
   import('node-fetch').then(({ default: fetch }) =>
