@@ -25,7 +25,7 @@ function SignIn(props) {
   const [password, setPassword] = useState('');
 
   const CLIENT_ID =
-    '901507829953-n3rc11mkp13gpibjrs355njeqpjdcthd.apps.googleusercontent.com';
+    '88796443278-tm040jrfovse910ssio41o6hd26m5nk8.apps.googleusercontent.com';
 
   const login = () => {
     console.log(username, password);
@@ -42,8 +42,11 @@ function SignIn(props) {
   };
 
   const responseGoogle = (response) => {
+    console.log("oauth response", response)
     const googleId = response.profileObj.googleId;
     const gmail = response.profileObj.email;
+    const { accessToken } = response
+    localStorage.setItem('accessToken', accessToken);
 
     Axios.post('/api/auth/oauth', {
       gmail,
@@ -120,6 +123,7 @@ function SignIn(props) {
               onSuccess={responseGoogle}
               onFailure={responseGoogle}
               cookiePolicy={'single_host_origin'}
+              scope = 'openid email profile https://www.googleapis.com/auth/calendar'
             />
             <Grid container>
               <Grid item xs>
