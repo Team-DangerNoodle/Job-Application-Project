@@ -17,4 +17,25 @@ router.get('/', (req, res, next) => {
   );
 });
 
+
+
+
+router.post('/', (req, res, next) => {
+  const apiUrlNew =
+  `https://remotive.com/api/remote-jobs?category=${req.body.category}&search=${req.body.title}&limit=20`;
+  import('node-fetch').then(({ default: fetch }) =>
+    fetch(apiUrlNew)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        res.status(200).json(data.jobs);
+      })
+      .catch((err) => console.log(err))
+  );
+});
+
+
+
+
+
 module.exports = router;
