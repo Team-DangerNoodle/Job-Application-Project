@@ -9,7 +9,8 @@ const applicationRouters = require('./routers/applicationRouters');
 const remotiveRouters = require('./routers/remotiveRouters');
 const preferenceRouters = require('./routers/preferenceRouters');
 
-const MONGO_URI = "mongodb+srv://adamlang:iterationproject@cluster0.1fk97.mongodb.net/ITERATIONPROJECT?retryWrites=true&w=majority"
+const MONGO_URI =
+  'mongodb+srv://adamlang:iterationproject@cluster0.1fk97.mongodb.net/ITERATIONPROJECT?retryWrites=true&w=majority';
 
 const app = express();
 const PORT = 3000;
@@ -25,7 +26,7 @@ app.use('/api', applicationRouters);
 app.use('/api/auth', authSqlRouters);
 app.use('/api/auth/calendar', authRouters);
 app.use('/api/preferences', preferenceRouters);
-app.use('/api/jobs', remotiveRouters);
+app.use('/api/jobs/', remotiveRouters);
 
 //For all routes access the index.html file
 app.get('*', (req, res) => {
@@ -47,7 +48,6 @@ app.use((err, req, res, next) => {
     message: { err: 'An error occurred' },
   };
   const errorObj = Object.assign({}, defaultErr, err);
-  console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
 

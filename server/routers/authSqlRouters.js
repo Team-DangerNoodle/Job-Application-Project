@@ -8,11 +8,14 @@ const SALT_WORK_FACTOR = 10;
 router.post('/signup', async (req, res, next) => {
   const { username, password } = req.body;
   if (username && password) {
-    console.log('authSqlRouter /signUp username, password: ', username, password);
+    // console.log('authSqlRouter /signUp username, password: ', username, password);
     try {
       const hash = await bcrypt.hash(password, SALT_WORK_FACTOR);
 
-      const userInDb = await db.query('INSERT INTO users(id, name, password) VALUES (DEFAULT, $1, $2) RETURNING *', [username, hash]);
+      const userInDb = await db.query(
+        'INSERT INTO users(id, name, password) VALUES (DEFAULT, $1, $2) RETURNING *',
+        [username, hash]
+      );
       res.locals.userId = userInDb.rows[0].id;
       console.log('res.locals.addedUser :', res.locals.userId);
       return res.status(200).json(res.locals.userId);
@@ -29,8 +32,11 @@ router.post('/login', async (req, res, next) => {
   console.log('i am here');
   const { username, password } = req.body;
   try {
-    if (!username || !password) throw new Error('Please enter both username and password to login');
-    const userInDb = await db.query('SELECT * FROM users WHERE name = $1', [username]);
+    if (!username || !password)
+      throw new Error('Please enter both username and password to login');
+    const userInDb = await db.query('SELECT * FROM users WHERE name = $1', [
+      username,
+    ]);
     if (userInDb.rows[0] === undefined) {
       throw new Error('Username does not exist.');
     }
@@ -55,11 +61,16 @@ router.post('/oauth', async (req, res, next) => {
   const username = gmail;
   const password = googleId;
   try {
-    let userInDb = await db.query('SELECT * FROM users WHERE name  = $1', [username]);
+    let userInDb = await db.query('SELECT * FROM users WHERE name  = $1', [
+      username,
+    ]);
     if (userInDb.rows[0] === undefined) {
       const hash = await bcrypt.hash(password, SALT_WORK_FACTOR);
 
-      userInDb = await db.query('INSERT INTO users(id, name, password) VALUES (DEFAULT, $1, $2) RETURNING *', [username, hash]);
+      userInDb = await db.query(
+        'INSERT INTO users(id, name, password) VALUES (DEFAULT, $1, $2) RETURNING *',
+        [username, hash]
+      );
       res.locals.userId = userInDb.rows[0].id;
       console.log('res.locals.addedUser :', res.locals.userId);
       return res.status(200).json(res.locals.userId);
