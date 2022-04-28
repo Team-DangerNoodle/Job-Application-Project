@@ -3,36 +3,27 @@ import { Link, useNavigate } from 'react-router-dom';
 import CardApplication from './CardApplication';
 import { Container, Button, Box, Typography } from '@mui/material';
 import Searching from '../assets/searching.png';
+import CalModal from './modal.js';
 import Axios from 'axios';
 
 function Dashboard() {
 
-  const addCalendarEvent = () => {
-    console.log('addCalendarEvent initialized')
-     const accessToken = localStorage.getItem("accessToken");
-     console.log('accessToken: ', accessToken);
-     Axios.post('/api/auth/calendar/addCalendarEvent', {
-      accessToken
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-    
-    //  fetch('/api/auth/addCalendarEvent', 
-    //  {
-    //    method: 'POST',
-    //    headers: { 'Content-Type': 'application/json'},
-    //    body: "bodyinside"
-    //  })
-    //  .then(res =>  console.log(res))
-    //  .catch((err) => console.log('error', err))
-    
-     console.log('addCalendarEvent function completed');
-  }
+  // const addCalendarEvent = () => {
+  //   console.log('addCalendarEvent initialized')
+  //   const accessToken = localStorage.getItem("accessToken");
+  //   console.log('accessToken: ', accessToken);
+  //   Axios.post('/api/auth/calendar/addCalendarEvent', {
+  //     accessToken
+  //   })
+  //     .then(function (response) {
+  //       console.log(response);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
 
+  //   console.log('addCalendarEvent function completed');
+  // }
 
   const [applications, setApplications] = useState([]);
   const navigate = useNavigate();
@@ -42,12 +33,14 @@ function Dashboard() {
       .then((data) => data.json())
       .then((res) => setApplications(res));
   };
+
   useEffect(() => {
     if (!userId) {
       navigate('/');
     }
     getApplications();
   }, []);
+
   const deleteApplication = (appId) => {
     fetch(`/api/application/${appId}`, {
       method: 'DELETE',
@@ -112,9 +105,8 @@ function Dashboard() {
         Welcome to your dashboard!
       </Typography>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-      <Button variant='text' sx={{ mr: 5 }} onClick={addCalendarEvent}>
-            Add to Calendar
-          </Button>
+        <CalModal />
+
         <Link to='/jobs' style={{ textDecoration: 'none' }}>
           <Button variant='text' sx={{ mr: 5 }}>
             View Job Postings
@@ -131,3 +123,6 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
+// thoughts: add calendar button needs an onClick function that renders a modal,
+// rather than inserting the modal directly into the return statement block
