@@ -42,6 +42,7 @@
     "node-fetch": "^3.2.3",
     "node-sass": "^7.0.1",
     "nodemon": "^2.0.15",
+    "pg": "^8.7.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-google-login": "^5.2.2",

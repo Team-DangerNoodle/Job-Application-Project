@@ -16,10 +16,11 @@ const applicationSchema = new Schema({
   remotive_id: { type: String, unique: false },
   progress: { type: String, required: true },
   priority: { type: Number, required: true },
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-  },
+  // userId: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'User',
+  // },
+  userId : {type: String, required: true}
 });
 
 module.exports = mongoose.model('Application', applicationSchema);

@@ -11,7 +11,7 @@ function Dashboard() {
     console.log('addCalendarEvent initialized')
      const accessToken = localStorage.getItem("accessToken");
      console.log('accessToken: ', accessToken);
-     Axios.post('/api/auth/addCalendarEvent', {
+     Axios.post('/api/auth/calendar/addCalendarEvent', {
       accessToken
     })
     .then(function (response) {
