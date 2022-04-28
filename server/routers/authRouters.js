@@ -112,9 +112,14 @@ const oauth2Client = new google.auth.OAuth2(
 
 /// create event router
 router.post('/addCalendarEvent', async (req, res, next) => {
+  console.log('entered calendar router')
   try {
-    const { accessToken } = req.body
+    const { accessToken, form } = req.body
     console.log("access token backend", accessToken)
+    console.log("FORM", form)
+    const startTime = form.startDateTime + ":00-07:00"
+    const endTime = form.endDateTime + ":00-07:00"
+
     oauth2Client.setCredentials({ access_token: accessToken })
     console.log(oauth2Client)
     const calendar = await google.calendar('v3')
@@ -122,16 +127,16 @@ router.post('/addCalendarEvent', async (req, res, next) => {
       auth: oauth2Client,
       calendarId: 'primary',
       requestBody: {
-        summary: "testsummary",
-        description: 'testdesc',
-        location: 'testloc',
+        summary: form.summary,
+        description: form.description,
+        location: form.location,
         colorId: '7',
         start: {
-          dateTime: "2022-04-27T06:00:00-07:00",
+          dateTime: startTime,
           timeZone: "America/Los_Angeles"
         },
         end: {
-          dateTime: "2022-04-27T09:00:00-07:00",
+          dateTime: endTime,
           timeZone: "America/Los_Angeles"
         }
       }
