@@ -22,7 +22,7 @@ const priorityConverter = (priority) => {
 
 // creates a new job application & sends it back to the frontend to display fields
 router.post('/applications/:userId', async (req, res, next) => {
-  const userId = req.params.userId;
+  const userId = req.params.userId.toString();
   const {
     title,
     url,
@@ -63,7 +63,7 @@ router.post('/applications/:userId', async (req, res, next) => {
     return res.status(200).json(res.locals.application);
   } catch (err) {
     return next({
-      log: 'Error occurred with creating application. Try again',
+      log: err,
       message: {
         err: err.message,
       },
