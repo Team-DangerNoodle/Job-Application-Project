@@ -33,13 +33,14 @@ function JobDashboard() {
     fetch('api/jobs', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(formState),
     })
       .then((res) => res.json())
-      .then((data) => setJobs(data));
+      .then((data) => {
+      console.log(data)
+      setJobs(data)});
   };
 
   return (
@@ -84,8 +85,8 @@ function JobDashboard() {
             <MenuItem value='None'>
               <em>None</em>
             </MenuItem>
-            <MenuItem value='softwaredev'>Software Engineer</MenuItem>
-            <MenuItem value='customersupport'>Customer Support</MenuItem>
+            <MenuItem value='software-dev'>Software Engineer</MenuItem>
+            <MenuItem value='customer-support'>Customer Support</MenuItem>
             <MenuItem value='design'>Design</MenuItem>
             <MenuItem value='marketing'>Marketing</MenuItem>
             <MenuItem value='sales'>Sales</MenuItem>
@@ -93,11 +94,11 @@ function JobDashboard() {
             <MenuItem value='business'>Business</MenuItem>
             <MenuItem value='data'>Data</MenuItem>
             <MenuItem value='devops'>DevOps</MenuItem>
-            <MenuItem value='financelegal'>Finance Legal</MenuItem>
+            <MenuItem value='finance-legal'>Finance Legal</MenuItem>
             <MenuItem value='hr'>HR</MenuItem>
             <MenuItem value='qa'>QA</MenuItem>
             <MenuItem value='writing'>Writing</MenuItem>
-            <MenuItem value='allothers'>Other</MenuItem>
+            <MenuItem value='all-others'>Other</MenuItem>
           </Select>
         </FormControl>
         <Button variant='contained' onClick={buttonClick}>
