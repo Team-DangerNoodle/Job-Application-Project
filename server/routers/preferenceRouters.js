@@ -24,18 +24,23 @@ router.post('/:userId', async (req, res, next) => {
   const { userId } = req.params;
   const preferences = req.body;
   const preferencesArr = [];
-  for (const key of preferences){
+  console.log('preferences: ', preferences);
+  preferencesArr.push(userId);
+  
+  for (const key in preferences){
     if (listPreferences[key]){
       preferencesArr.push(listPreferences[key]);
     }
   }
 
+  console.log('preferencesArr: ', preferencesArr);
   function createQueryStr(NumPreferences){
-    let str = 'INSERT INTO user_preferences (id, user_id, preference_id) VALUES (';
-    for (let i = 1; i <= NumPreferences; i++){
-      str += `(DEFAULT, userId, ${i}),`;
+    let str = 'INSERT INTO user_preferences (user_id, preference_id) VALUES ';
+    for (let i = 2; i <= NumPreferences; i++){
+      str += `($1, $${i})`;
+      if (i < NumPreferences) str += ',';
     }
-    str += ');'
+    str += ';'
     return str;
   }
   try {
