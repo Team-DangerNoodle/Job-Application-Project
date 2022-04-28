@@ -3,8 +3,8 @@ const router = express.Router();
 const db = require('../models/userSqlModel');
 
 const listPreferences = {
-  software-dev: 4,
-  customer-support:5 ,
+  softwaredev: 4,
+  customersupport:5 ,
   design: 6,
   marketing:7 ,
   sales: 8,
@@ -12,11 +12,11 @@ const listPreferences = {
   business:10 ,
   data: 11,
   devops: 12,
-  finance-legal: 13,
+  financelegal: 13,
   hr: 14,
   qa: 15,
   writing: 16,
-  all-others: 17,
+  allothers: 17
 }
 
 

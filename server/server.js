@@ -4,16 +4,16 @@ const mongoose = require('mongoose');
 const path = require('path');
 require('dotenv').config();
 const authRouters = require('./routers/authRouters');
-// const authSqlRouters = require('./routers/authSqlRouters');
+const authSqlRouters = require('./routers/authSqlRouters');
 const applicationRouters = require('./routers/applicationRouters');
 const remotiveRouters = require('./routers/remotiveRouters');
 const preferenceRouters = require('./routers/preferenceRouters');
 
-// const MONGO_URI = "mongodb+srv://adamlang:iterationproject@cluster0.1fk97.mongodb.net/ITERATIONPROJECT?retryWrites=true&w=majority"
+const MONGO_URI = "mongodb+srv://adamlang:iterationproject@cluster0.1fk97.mongodb.net/ITERATIONPROJECT?retryWrites=true&w=majority"
 
 const app = express();
 const PORT = 3000;
-// mongoose.connect(MONGO_URI);
+mongoose.connect(MONGO_URI);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -22,8 +22,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../build')));
 
 app.use('/api', applicationRouters);
-app.use('/api/auth', authRouters);
-// app.use('/api/auth', authSqlRouters);
+app.use('/api/auth', authSqlRouters);
+app.use('/api/auth/calendar', authRouters);
 app.use('/api/preferences', preferenceRouters);
 app.use('/api/jobs', remotiveRouters);
 
